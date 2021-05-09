@@ -18,7 +18,7 @@ class Player:
         if vp:  # VP: NightABot
             self.user_id = NightABot.id
             self.name = f"<a href='https://t.me/NightABot'>NightABot {STAR}</a>"
-            self.mention = f"<a href='tg://user?id={on9bot.id}'>NightABot {STAR}</a>"
+            self.mention = f"<a href='tg://user?id={NightABot.id}'>NightABot {STAR}</a>"
             self.is_vp = True
         else:
             self.user_id = user.id
