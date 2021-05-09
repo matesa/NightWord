@@ -1,0 +1,12 @@
+{
+    "TOKEN": "1584453433:AAEWCZHC0KVd3wIivdR2lufjwj6nTVgtwFo",
+    "ON9BOT_TOKEN": "1786993894:AAES1Pbhwo_fEHegRbCP8Wp4Et-GksM-ezA",
+    "DB_URI": "postgres://postgres:poyraz123+@127.0.0.1:5432/nightcrew",
+    "PROVIDER_TOKEN": "",
+    "OWNER_ID": 1557151130,
+    "ADMIN_GROUP_ID": -1001179862985,
+    "OFFICIAL_GROUP_ID": -1001179862985,
+    "WORD_ADDITION_CHANNEL_ID": -1001179862985,
+    "VIP": [],
+    "VIP_GROUP": []
+}
