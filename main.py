@@ -33,11 +33,11 @@ MAINT_MODE = False
 
 
 async def private_only_command(message: types.Message) -> None:
-    await message.reply("Please use this command in private.")
+    await message.reply("Lütfen bu komutu özel olarak kullanın.")
 
 
 async def groups_only_command(message: types.Message) -> None:
-    await message.reply("This command can only be used in groups.", reply_markup=ADD_TO_GROUP_KEYBOARD)
+    await message.reply("Bu komut yalnızca gruplarda kullanılabilir.", reply_markup=ADD_TO_GROUP_KEYBOARD)
 
 
 @dp.message_handler(is_group=False, commands="start")
@@ -53,8 +53,8 @@ async def cmd_start(message: types.Message) -> None:
 
     await message.reply(
         (
-            "Hi! I host games of word chain in Telegram groups.\n"
-            "Add me to a group to start playing games!"
+            "Merhaba! Telegram gruplarında kelime zinciri oyunları barındırıyorum.\n"
+            "Oyun oynamaya başlamak için beni bir gruba ekleyin!"
         ),
         disable_web_page_preview=True,
         reply_markup=ADD_TO_GROUP_KEYBOARD,
@@ -65,13 +65,13 @@ async def cmd_start(message: types.Message) -> None:
 async def new_member(message: types.Message) -> None:
     if any(user.id == bot.id for user in message.new_chat_members):  # self added to group
         await message.reply(
-            "Thanks for adding me. Start a classic game with /startclassic!",
+            "Beni eklediğiniz için teşekkürler /startclassic ile klasik bir oyuna başlayın!",
             reply=False,
         )
     elif message.chat.id == OFFICIAL_GROUP_ID:
         await message.reply(
-            "Welcome to the official On9 Word Chain group!\n"
-            "Start a classic game with /startclassic!"
+            "Resmi NightWord Kelime Zinciri grubuna hoş geldiniz!\n"
+            "/startclassic ile klasik bir oyuna başlayın!"
         )
 
 
@@ -79,13 +79,13 @@ async def new_member(message: types.Message) -> None:
 async def cmd_help(message: types.Message) -> None:
     if message.chat.id < 0:
         await message.reply(
-            "Please use this command in private.",
+            "Lütfen bu komutu özel olarak kullanın.",
             reply_markup=types.InlineKeyboardMarkup(
                 inline_keyboard=[
                     [
                         types.InlineKeyboardButton(
-                            "Send help message in private",
-                            url="https://t.me/on9wordchainbot?start=help",
+                            "Özel olarak yardım mesajı gönder",
+                            url="https://t.me/NightWordBot?start=help",
                         )
                     ]
                 ]
@@ -95,14 +95,13 @@ async def cmd_help(message: types.Message) -> None:
 
     await message.reply(
         (
-            "/gameinfo - Game mode descriptions\n"
-            "/troubleshoot - See how to solve common issues\n"
-            "/reqaddword - Request addition of words\n\n"
-            "You may message [Jono](tg://user?id=463998526) in *English or Cantonese* for anything about the bot.\n"
-            "Official Group: @on9wordchain\n"
-            "Word Additions Channel (with status updates): @on9wcwa\n"
-            "Source Code: [Tr-Jono/on9wordchainbot](https://github.com/Tr-Jono/on9wordchainbot)\n"
-            "Epic icon designed by [Adri](tg://user?id=303527690)"
+            "/gameinfo - Oyun modu açıklamaları\n"
+            "/troubleshoot - Sık karşılaşılan sorunları nasıl çözeceğinizi öğrenin\n"
+            "/reqaddword - Kelimelerin eklenmesini iste\n\n"
+            "Botla ilgili herhangi bir şey için [POYRAZ](tg://user?id=1557151130) in *Kürtçe veya Türkçe* mesaj gönderebilirsiniz.\n"
+            "Resmi Grup: @Fmsarkilar\n"
+            "Kelime Ekleme Kanalı (durum güncellemeli): @NightWordGame\n"
+            "NightWord [Poyraz] tarafından tasarlandı (tg://user?id=1557151130)"
         ),
         disable_web_page_preview=True,
     )
@@ -114,19 +113,19 @@ async def cmd_gameinfo(message: types.Message) -> None:
         await private_only_command(message)
         return
     await message.reply(
-        "/startclassic - Classic game\n"
-        "Players take turns to send words starting with the last letter of the previous word.\n\n"
-        "Other modes:\n"
-        "/starthard - Hard mode game\n"
-        "/startchaos - Chaos game (random turn order)\n"
-        "/startcfl - Chosen first letter game\n"
-        "/startbl - Banned letters game\n"
-        "/startrl - Required letter game\n\n"
-        "/startelim - Elimination game\n"
-        "Each player's score is their cumulative word length. "
-        "The lowest scoring players are eliminated after each round.\n\n"
-        "/startmelim - Mixed elimination game (donation reward)\n"
-        "Elimination game with different modes. Try at @on9wordchain."
+        "/startclassic - Klasik oyun\n"
+        "Oyuncular sırayla bir önceki kelimenin son harfiyle başlayan kelimeleri gönderirler.\n\n"
+        "Diğer modlar:\n"
+        "/starthard - Zor mod oyunu\n"
+        "/startchaos - Kaos oyunu (rastgele sıra sırası)\n"
+        "/startcfl - İlk harf oyunu seçildi\n"
+        "/startbl - Yasaklı harfler oyunu\n"
+        "/startrl - Gerekli harf oyunu\n\n"
+        "/startelim - Eleme oyunu\n"
+        "Her oyuncunun puanı kümülatif kelime uzunluğudur. "
+        "En düşük puana sahip oyuncular her turdan sonra elenir.\n\n"
+        "/startmelim - Karışık eleme oyunu (bağış ödülü)\n"
+        "Farklı modlara sahip eleme oyunu. @Fmsarkilar."
     )
 
 
@@ -136,23 +135,23 @@ async def cmd_troubleshoot(message: types.Message) -> None:
         await private_only_command(message)
         return
     await message.reply(
-        "If you cannot start games in your group:\n"
-        "1. If I say maintenance mode is on, an update is waiting to be deployed.\\*\n"
-        "2. Make sure I am present and not muted in your group, and slow mode is off.\n"
-        "3. Send `/ping@on9wordchainbot` in your group.\n\n"
-        "If I respond:\n"
-        "Contact [my owner](tg://user?id=463998526) with your group's id (obtained with /groupid).\n\n"
-        "If I do not respond:\n"
-        "a. I may be offline since an update is being deployed.\\*\n"
-        "b. If a group member has spammed me with commands, "
-        "I am rate limited for minutes or even hours by Telegram. "
-        "Do not spam commands and try again later.\n\n"
-        "\\*: Please wait and check @on9wcwa for status updates.\n\n"
-        "If you cannot add me into your group:\n"
-        "1. Your group may have disabled the addition of new members.\n"
-        "2. There can be at most 20 bots in a group. Check if the limit is reached.\n"
-        "3. Contact your group admin for help. This is not an issue my owner can resolve.\n\n"
-        "If you encounter other issues, please contact [my owner](tg://user?id=463998526)."
+        "Grubunuzdaki oyunlara başlayamazsanız:\n"
+        "1. Bakım modunun açık olduğunu söylersem, bir güncelleme dağıtılmayı bekliyor.\\*\n"
+        "2. Grubunuzda bulunduğumdan ve sesinizin kapatılmadığından ve yavaş modun kapalı olduğundan emin olun.\n"
+        "3. Grubunuzda `/ping@NightWordBot` Gönderin.\n\n"
+        "Cevap verirsem:\n"
+        "[Sahibim] ile (tg://user?id=1557151130) grubunuzun kimliğiyle (/groupid ile elde edilir) iletişim kurun.\n\n"
+        "Yanıt vermezsem:\n"
+        "a. Bir güncelleme dağıtıldığı için çevrimdışı olabilirim.\\*\n"
+        "b. Bir grup üyesi bana komutlarla spam gönderdiyse, "
+        "Telegram ile dakikalar ve hatta saatler için sınırlandırılıyorum. "
+        "Komutları spam etmeyin ve daha sonra tekrar deneyin.\n\n"
+        "\\*: Lütfen bekleyin ve durum güncellemeleri için @NightWordGame'ı kontrol edin.\n\n"
+        "Beni grubunuza ekleyemezseniz:\n"
+        "1. Grubunuz yeni üye eklenmesini devre dışı bırakmış olabilir.\n"
+        "2. Bir grupta en fazla 20 bot olabilir. Sınıra ulaşılıp ulaşılmadığını kontrol edin.\n"
+        "3. Yardım için grup yöneticinizle iletişime geçin. Bu, sahibimin çözebileceği bir sorun değil.\n\n"
+        "Başka sorunlarla karşılaşırsanız, lütfen [Sahibim] ile iletişime geçin (tg://user?id=1557151130)."
     )
 
 
@@ -168,25 +167,25 @@ async def cmd_groupid(message: types.Message) -> None:
     if message.chat.id < 0:
         await message.reply(f"`{message.chat.id}`")
     else:
-        await message.reply("Run this command inside a group.")
+        await message.reply("Bu komutu bir grup içinde çalıştırın.")
 
 
 @dp.message_handler(commands="runinfo")
 async def cmd_runinfo(message: types.Message) -> None:
     uptime = datetime.now().replace(microsecond=0) - build_time
     await message.reply(
-        f"Build time: `{'{0.day}/{0.month}/{0.year}'.format(build_time)} {str(build_time).split()[1]} HKT`\n"
-        f"Uptime: `{uptime.days}.{str(uptime).rsplit(maxsplit=1)[-1]}`\n"
-        f"Total games: `{len(GAMES)}`\n"
-        f"Running games: `{len([g for g in GAMES.values() if g.state == GameState.RUNNING])}`\n"
-        f"Players: `{sum(len(g.players) for g in GAMES.values())}`"
+        f"Derleme zamanı: `{'{0.day}/{0.month}/{0.year}'.format(build_time)} {str(build_time).split()[1]} HKT`\n"
+        f"Çalışma süresi: `{uptime.days}.{str(uptime).rsplit(maxsplit=1)[-1]}`\n"
+        f"Toplam oyunlar: `{len(GAMES)}`\n"
+        f"Running oyunları: `{len([g for g in GAMES.values() if g.state == GameState.RUNNING])}`\n"
+        f"Oyuncu: `{sum(len(g.players) for g in GAMES.values())}`"
     )
 
 
 @dp.message_handler(is_owner=True, commands="playinggroups")
 async def cmd_playinggroups(message: types.Message) -> None:
     if not GAMES:
-        await message.reply("No groups are playing games.")
+        await message.reply("Oyun oynayan grup yok.")
         return
     groups = []
 
@@ -206,7 +205,7 @@ async def cmd_playinggroups(message: types.Message) -> None:
             text + (
                 f" <code>{group_id}</code> "
                 f"{len(GAMES[group_id].players_in_game)}/{len(GAMES[group_id].players)}P "
-                f"Timer: {GAMES[group_id].time_left}s"
+                f"Zamanlayıcı: {GAMES[group_id].time_left}s"
             )
         )
 
@@ -223,15 +222,15 @@ async def cmd_exists(message: types.Message) -> None:
             word = rmsg.text.lower()
         else:
             await message.reply(
-                "Function: Check if a word is in my dictionary. "
-                "Use /reqaddword if you want to request addition of new words.\n"
-                "Usage: `/exists word`"
+                "İşlev: Sözlüğümde bir sözcük olup olmadığını kontrol edin. "
+                "Yeni kelimelerin eklenmesini istiyorsanız /reqaddword kullanın.\n"
+                "Kullanım: `/exists kelime`"
             )
             return
     if check_word_existence(word):
-        await message.reply(f"_{word.capitalize()}_ is *in* my dictionary.")
+        await message.reply(f"_{word.capitalize()}_ is *sözlüğümde*.")
     else:
-        await message.reply(f"_{word.capitalize()}_ is *not in* my dictionary.")
+        await message.reply(f"_{word.capitalize()}_ is *sözlüğümde* Değil.")
 
 
 @dp.message_handler(commands=["startclassic", "startgame"])
@@ -244,7 +243,7 @@ async def cmd_startclassic(message: types.Message) -> None:
         await GAMES[group_id].join(message)
         return
     if MAINT_MODE:  # Only stop people from starting games, not joining
-        await message.reply("Maintenance mode is on. Games are temporarily disabled.")
+        await message.reply("Bakım modu açık. Oyunlar geçici olarak devre dışı bırakıldı.")
         return
     game = ClassicGame(message.chat.id)
     GAMES[group_id] = game
@@ -262,7 +261,7 @@ async def cmd_starthard(message: types.Message) -> None:
         await GAMES[group_id].join(message)
         return
     if MAINT_MODE:
-        await message.reply("Maintenance mode is on. Games are temporarily disabled.")
+        await message.reply("Bakım modu açık. Oyunlar geçici olarak devre dışı bırakıldı.")
         return
 
     game = HardModeGame(message.chat.id)
@@ -281,7 +280,7 @@ async def cmd_startchaos(message: types.Message) -> None:
         await GAMES[group_id].join(message)
         return
     if MAINT_MODE:
-        await message.reply("Maintenance mode is on. Games are temporarily disabled.")
+        await message.reply("Bakım modu açık. Oyunlar geçici olarak devre dışı bırakıldı.")
         return
 
     game = ChaosGame(message.chat.id)
@@ -300,7 +299,7 @@ async def cmd_startcfl(message: types.Message) -> None:
         await GAMES[group_id].join(message)
         return
     if MAINT_MODE:
-        await message.reply("Maintenance mode is on. Games are temporarily disabled.")
+        await message.reply("Bakım modu açık. Oyunlar geçici olarak devre dışı bırakıldı.")
         return
 
     game = ChosenFirstLetterGame(message.chat.id)
@@ -319,7 +318,7 @@ async def cmd_startbl(message: types.Message) -> None:
         await GAMES[group_id].join(message)
         return
     if MAINT_MODE:
-        await message.reply("Maintenance mode is on. Games are temporarily disabled.")
+        await message.reply("Bakım modu açık. Oyunlar geçici olarak devre dışı bırakıldı.")
         return
 
     game = BannedLettersGame(message.chat.id)
@@ -338,7 +337,7 @@ async def cmd_startrl(message: types.Message) -> None:
         await GAMES[group_id].join(message)
         return
     if MAINT_MODE:
-        await message.reply("Maintenance mode is on. Games are temporarily disabled.")
+        await message.reply("Bakım modu açık. Oyunlar geçici olarak devre dışı bırakıldı.")
         return
 
     game = RequiredLetterGame(message.chat.id)
@@ -357,7 +356,7 @@ async def cmd_startelim(message: types.Message) -> None:
         await GAMES[group_id].join(message)
         return
     if MAINT_MODE:
-        await message.reply("Maintenance mode is on. Games are temporarily disabled.")
+        await message.reply("Bakım modu açık. Oyunlar geçici olarak devre dışı bırakıldı.")
         return
 
     game = EliminationGame(message.chat.id)
@@ -377,8 +376,8 @@ async def cmd_startmixedelim(message: types.Message) -> None:
             and (await amt_donated(message.from_user.id)) < 30
     ):
         await message.reply(
-            "This game mode is a donation reward.\n"
-            "You can try this game mode at @on9wordchain."
+            "Bu oyun modu bir bağış ödülüdür.\n"
+            "NightCrew da deniyebilirsiniz katılmak için  @Poyraz2103 e yazın."
         )
         return
 
@@ -387,7 +386,7 @@ async def cmd_startmixedelim(message: types.Message) -> None:
         await GAMES[group_id].join(message)
         return
     if MAINT_MODE:
-        await message.reply("Maintenance mode is on. Games are temporarily disabled.")
+        await message.reply("Bakım modu açık. Oyunlar geçici olarak devre dışı bırakıldı.")
         return
 
     game = MixedEliminationGame(message.chat.id)
@@ -418,7 +417,7 @@ async def cmd_forcejoin(message: types.Message) -> None:
             return
         if isinstance(GAMES[group_id], EliminationGame):
             await message.reply(
-                "Sorry, [On9Bot](https://t.me/On9Bot) can't play elimination games.",
+                "Üzgünüm, [NightWord](https://t.me/NightWordBot) eleme oyunlarını oynayamaz.",
                 disable_web_page_preview=True,
             )
             return
@@ -461,7 +460,7 @@ async def cmd_killgame(message: types.Message) -> None:
         await asyncio.sleep(2)
         if group_id in GAMES:
             del GAMES[group_id]
-            await message.reply("Game ended forcibly.")
+            await message.reply("Oyun zorla sona erdi.")
 
 
 @dp.message_handler(is_group=True, is_owner=True, commands="forceskip")
@@ -478,7 +477,7 @@ async def addvp(message: types.Message) -> None:
         return
     if isinstance(GAMES[group_id], EliminationGame):
         await message.reply(
-            f"Sorry, [On9Bot](https://t.me/{(await on9bot.me).username}) can't play elimination games.",
+            f"Üzgünüm, [NightWord](https://t.me/{(await NightWordBot.me).username}) eleme oyunları olamaz.",
             disable_web_page_preview=True,
         )
         return
@@ -505,7 +504,7 @@ async def cmd_incmaxp(message: types.Message) -> None:
         return
     GAMES[group_id].max_players = GameSettings.INCREASED_MAX_PLAYERS
     await message.reply(
-        "Max players for this game increased from "
+        "Bu oyun için maksimum oyuncu sayısı "
         f"{GAMES[group_id].max_players} to {GameSettings.INCREASED_MAX_PLAYERS}."
     )
 
@@ -514,7 +513,7 @@ async def cmd_incmaxp(message: types.Message) -> None:
 async def cmd_maintmode(message: types.Message) -> None:
     global MAINT_MODE
     MAINT_MODE = not MAINT_MODE
-    await message.reply(f"Maintenance mode has been switched {'on' if MAINT_MODE else 'off'}.")
+    await message.reply(f"Bakım modu geçildi {'on' if MAINT_MODE else 'off'}.")
 
 
 @dp.message_handler(is_group=True, is_owner=True, commands="leave")
@@ -530,11 +529,11 @@ async def cmd_stats(message: types.Message) -> None:
 
     user = (rmsg.forward_from or rmsg.from_user) if rmsg else message.from_user
     async with pool.acquire() as conn:
-        res = await conn.fetchrow("SELECT * FROM player WHERE user_id = $1;", user.id)
+        res = await conn.fetchrow("SEÇ * OYUNCU NEREDEN user_id = $1;", user.id)
 
     if not res:
         await message.reply(
-            f"No statistics for {user.get_mention(as_html=True)}!",
+            f"{user.get_mention(as_html=True)} için istatistik yok!",
             parse_mode=types.ParseMode.HTML,
         )
         return
@@ -543,13 +542,13 @@ async def cmd_stats(message: types.Message) -> None:
         name=user.full_name + (" \u2b50\ufe0f" if await has_star(user.id) else ""),
         as_html=True,
     )
-    text = f"\U0001f4ca Statistics for {mention}:\n"
-    text += f"<b>{res['game_count']}</b> games played\n"
-    text += f"<b>{res['win_count']} ({res['win_count'] / res['game_count']:.0%})</b> games won\n"
-    text += f"<b>{res['word_count']}</b> total words played\n"
-    text += f"<b>{res['letter_count']}</b> total letters played\n"
+    text = f"\U0001f4ca için İstatistik {mention}:\n"
+    text += f"<b>{res['game_count']}</b> oyun oynandı\n"
+    text += f"<b>{res['win_count']} ({res['win_count'] / res['game_count']:.0%})</b> oyunu kazandı\n"
+    text += f"<b>{res['word_count']}</b> oynanan toplam kelime\n"
+    text += f"<b>{res['letter_count']}</b> oynanan toplam harf\n"
     if res["longest_word"]:
-        text += f"Longest word: <b>{res['longest_word'].capitalize()}</b>"
+        text += f"En uzun kelime: <b>{res['longest_word'].capitalize()}</b>"
     await message.reply(text.rstrip(), parse_mode=types.ParseMode.HTML)
 
 
@@ -569,11 +568,11 @@ async def cmd_groupstats(message: types.Message) -> None:  # TODO: Add top playe
         )
     await message.reply(
         (
-            f"\U0001f4ca Statistics for <b>{quote_html(message.chat.title)}</b>\n"
-            f"<b>{player_cnt}</b> players\n"
-            f"<b>{game_cnt}</b> games played\n"
-            f"<b>{word_cnt}</b> total words played\n"
-            f"<b>{letter_cnt}</b> total letters played"
+            f"\U0001f4ca İstatistik <b>{quote_html(message.chat.title)}</b>\n"
+            f"<b>{player_cnt}</b> oyuncu\n"
+            f"<b>{game_cnt}</b> oynanan oyun\n"
+            f"<b>{word_cnt}</b> oynanan toplam kelime\n"
+            f"<b>{letter_cnt}</b> oynanan toplam harf"
         ),
         parse_mode=types.ParseMode.HTML,
     )
@@ -589,12 +588,12 @@ async def get_global_stats() -> str:
             "SELECT COUNT(*), SUM(word_count), SUM(letter_count) FROM player;"
         )
     return (
-        "\U0001f4ca Global statistics\n"
-        f"*{group_cnt}* groups\n"
-        f"*{player_cnt}* players\n"
-        f"*{game_cnt}* games played\n"
-        f"*{word_cnt}* total words played\n"
-        f"*{letter_cnt}* total letters played"
+        "\U0001f4ca Genel istatistikler\n"
+        f"*{group_cnt}* gruplar\n"
+        f"*{player_cnt}* oyuncular\n"
+        f"*{game_cnt}* oynanan oyunlar\n"
+        f"*{word_cnt}* oynanan toplam kelime\n"
+        f"*{letter_cnt}* oynanan toplam harf"
     )
 
 
@@ -609,13 +608,13 @@ async def cmd_globalstats(message: types.Message) -> None:
 async def cmd_donate(message: types.Message) -> None:
     if message.chat.id < 0:
         await message.reply(
-            "Slide into my DMs to donate!",
+            "Bağış yapmak için DM'lerime kaydırın!",
             reply_markup=types.InlineKeyboardMarkup(
                 inline_keyboard=[
                     [
                         types.InlineKeyboardButton(
-                            "Donate in private",
-                            url="https://t.me/on9wordchainbot?start=donate",
+                            "Özel bağış yapın",
+                            url="https://t.me/NightWordBot?start=donate",
                         )
                     ]
                 ]
@@ -631,11 +630,11 @@ async def cmd_donate(message: types.Message) -> None:
             assert amt > 0
             await send_donate_invoice(message.chat.id, amt)
         except (ValueError, InvalidOperation, AssertionError):
-            await message.reply("Invalid amount.\nPlease enter a positive number.")
+            await message.reply("Geçersiz miktar.\nLütfen pozitif bir sayı girin.")
         except BadRequest as e:
             if str(e) == "Currency_total_amount_invalid":
                 await message.reply(
-                    "Sorry, the entered amount was not in range (1-10000). " "Please try another amount."
+                    "Üzgünüz, girilen miktar (1-10000) aralığında değil. " "Lütfen başka bir miktar deneyin."
                 )
                 return
             raise
@@ -643,13 +642,13 @@ async def cmd_donate(message: types.Message) -> None:
 
 async def send_donate_msg(message: types.Message) -> None:
     await message.reply(
-        "Donate to support this project! \u2764\ufe0f\n"
-        "Donations are accepted in HKD (1 USD ≈ 7.75 HKD).\n"
-        "Select one of the following options or type in the desired amount in HKD (e.g. `/donate 42.42`).\n\n"
-        "Donation rewards:\n"
-        "Any amount: \u2b50\ufe0f is displayed next to your name during games.\n"
-        "10 HKD (cumulative): Search words in inline queries (e.g. `@on9wordchainbot test`)\n"
-        "30 HKD (cumulative): Start mixed elimination games (`/startmelim`)\n",
+        "Bu projeyi desteklemek için bağış yapın! \u2764\ufe0f\n"
+        "Bağışlar HKD olarak kabul edilir HKD (1 USD ≈ 7.75 HKD).\n"
+        "Aşağıdaki seçeneklerden birini seçin veya HKD olarak istediğiniz miktarı yazın (örnk. `/donate 42.42`).\n\n"
+        "Bağış ödülleri:\n"
+        "Oyunlar sırasında adınızın yanında herhangi bir miktar: \u2b50\ufe0f görüntülenir.\n"
+        "10 HKD (cumulative): Satır içi sorgularda kelime ara (e.g. `@NightWord test`)\n"
+        "30 HKD (cumulative): Karışık eleme oyunlarını başlat (`/startmelim`)\n",
         reply_markup=types.InlineKeyboardMarkup(
             inline_keyboard=[
                 [
@@ -669,9 +668,9 @@ async def send_donate_msg(message: types.Message) -> None:
 async def send_donate_invoice(user_id: int, amt: int) -> None:
     await bot.send_invoice(
         chat_id=user_id,
-        title="On9 Word Chain Bot Donation",
-        description="Support bot development",
-        payload=f"on9wordchainbot_donation:{user_id}",
+        title="NightWord Kelime Zinciri Bot Bağışı",
+        description="Bot geliştirmeyi destekle",
+        payload=f"NightWordBot_donation:{user_id}",
         provider_token=PROVIDER_TOKEN,
         start_parameter="donate",
         currency="HKD",
@@ -681,13 +680,13 @@ async def send_donate_invoice(user_id: int, amt: int) -> None:
 
 @dp.pre_checkout_query_handler()
 async def pre_checkout_query_handler(pre_checkout_query: types.PreCheckoutQuery) -> None:
-    if pre_checkout_query.invoice_payload == f"on9wordchainbot_donation:{pre_checkout_query.from_user.id}":
+    if pre_checkout_query.invoice_payload == f"NightWordBot_donation:{pre_checkout_query.from_user.id}":
         await bot.answer_pre_checkout_query(pre_checkout_query.id, ok=True)
     else:
         await bot.answer_pre_checkout_query(
             pre_checkout_query.id,
             ok=False,
-            error_message="Donation unsuccessful. No payment was carried out. Mind trying again later? :D",
+            error_message="Bağış başarısız. Ödeme yapılmadı. Daha sonra tekrar deneyebilir misiniz? :D",
         )
 
 
@@ -700,7 +699,7 @@ async def successful_payment_handler(message: types.Message) -> None:
     async with pool.acquire() as conn:
         await conn.execute(
             """\
-            INSERT INTO donation (
+            INSERT INTO Bağış (
                 donation_id, user_id, amount, donate_time,
                 telegram_payment_charge_id, provider_payment_charge_id
             )
@@ -716,17 +715,17 @@ async def successful_payment_handler(message: types.Message) -> None:
     await asyncio.gather(
         message.answer(
             (
-                f"Your donation of {amt} HKD is successful.\n"
-                "Thank you for your support! :D\n"
-                f"Donation id: #on9wcbot_{donation_id}"
+                f"{amt} bağışınız başarılı.\n"
+                "Desteğiniz için teşekkürler! :D\n"
+                f"Bağış kimliği: #nightwordbot_{donation_id}"
             ),
             parse_mode=types.ParseMode.HTML,
         ),
         send_admin_group(
             (
-                f"Received donation of {amt} HKD from {message.from_user.get_mention(as_html=True)} "
+                f"bağışı alındı {amt} HKD from {message.from_user.get_mention(as_html=True)} "
                 f"(id: <code>{message.from_user.id}</code>).\n"
-                f"Donation id: #on9wcbot_{donation_id}"
+                f"Bağış kimliği: #nightwordbot_{donation_id}"
             ),
             parse_mode=types.ParseMode.HTML,
         )
@@ -743,7 +742,7 @@ async def cmd_sql(message: types.Message) -> None:
         return
 
     if not res:
-        await message.reply("No results returned.")
+        await message.reply("Sonuç döndürülmedi.")
         return
 
     text = ["*" + " - ".join(res[0].keys()) + "*"]
@@ -760,10 +759,10 @@ async def cmd_reqaddword(message: types.Message) -> None:
     words_to_add = [w for w in set(message.get_args().lower().split()) if all(c in ascii_lowercase for c in w)]
     if not words_to_add:
         await message.reply(
-            "Function: Request addition of new words. Check @on9wcwa for new words.\n"
-            "Please check the spelling of words before requesting so I can process your requests faster.\n"
-            "Proper nouns are not accepted.\n"
-            "Usage: `/reqaddword wordone wordtwo ...`"
+            "İşlev: Yeni sözcüklerin eklenmesini talep edin. Yeni sözcükler için @Poyraz2103.\n"
+            "Lütfen istekte bulunmadan önce kelimelerin yazımını kontrol edin, böylece isteklerinizi daha hızlı işleme koyabilirim.\n"
+            "Özel isimler kabul edilmez.\n"
+            "Kullanım: `/reqaddword wordone wordtwo ...`"
         )
         return
 
@@ -776,7 +775,7 @@ async def cmd_reqaddword(message: types.Message) -> None:
             words_to_add.remove(w)
 
     async with pool.acquire() as conn:
-        rej = await conn.fetch("SELECT word, reason FROM wordlist WHERE NOT accepted;")
+        rej = await conn.fetch("SEÇİN kelime, kabul edilmeyen kelime listesinden neden;")
     for word, reason in rej:
         if word not in words_to_add:
             continue
@@ -789,15 +788,15 @@ async def cmd_reqaddword(message: types.Message) -> None:
 
     text = ""
     if words_to_add:
-        text += f"Submitted {', '.join(['_' + w.capitalize() + '_' for w in words_to_add])} for approval.\n"
+        text += f"Öneri {', '.join(['_' + w.capitalize() + '_' for w in words_to_add])} for approval.\n"
         await send_admin_group(
             message.from_user.get_mention(
                 name=message.from_user.full_name + (" \u2b50\ufe0f" if await has_star(message.from_user.id) else ""),
                 as_html=True,
             )
-            + " is requesting the addition of "
+            + " nin eklenmesini istiyor "
             + ", ".join(["<i>" + w.capitalize() + "</i>" for w in words_to_add])
-            + " to the word list. #reqaddword",
+            + " kelime listesine. #reqaddword",
             parse_mode=types.ParseMode.HTML,
         )
     if existing:
@@ -822,7 +821,7 @@ async def cmd_addwords(message: types.Message) -> None:
             existing.append("_" + w.capitalize() + "_")
             words_to_add.remove(w)
     async with pool.acquire() as conn:
-        rej = await conn.fetch("SELECT word, reason FROM wordlist WHERE NOT accepted;")
+        rej = await conn.fetch("SEÇİN kelime, kabul edilmeyen kelime listesinden neden;")
     for word, reason in rej:
         if word not in words_to_add:
             continue
@@ -847,10 +846,10 @@ async def cmd_addwords(message: types.Message) -> None:
     if not words_to_add:
         return
     await update_words()
-    await msg.edit_text(msg.md_text + "\n\nWord list updated.")
+    await msg.edit_text(msg.md_text + "\n\nKelime listesi güncellendi.")
     await bot.send_message(
         WORD_ADDITION_CHANNEL_ID,
-        f"Added {', '.join(['_' + w.capitalize() + '_' for w in words_to_add])} to the word list.",
+        f"Eklenen {', '.join(['_' + w.capitalize() + '_' for w in words_to_add])} to the word list.",
         disable_notification=True,
     )
 
@@ -863,22 +862,22 @@ async def cmd_rejword(message: types.Message) -> None:
         return
     word = word.lower()
     async with pool.acquire() as conn:
-        r = await conn.fetchrow("SELECT accepted, reason FROM wordlist WHERE word = $1;", word)
+        r = await conn.fetchrow("SEÇME kabul edildi, kelime listesinden neden NEREDE kelime = $1;", word)
         if r is None:
             await conn.execute(
-                "INSERT INTO wordlist (word, accepted, reason) VALUES ($1, false, $2)",
+                "INSERT INTO wordlist (kelime, kabul edildi, neden) VALUES ($1, false, $2)",
                 word,
                 reason.strip() or None,
             )
     word = word.capitalize()
     if r is None:
-        await message.reply(f"_{word}_ rejected.")
-    elif r["accepted"]:
-        await message.reply(f"_{word}_ was accepted.")
+        await message.reply(f"_{word}_ reddedildi.")
+    elif r["kabul edildi"]:
+        await message.reply(f"_{word}_ kabul edildi.")
     elif not r["reason"]:
-        await message.reply(f"_{word}_ was already rejected.")
+        await message.reply(f"_{word}_ zaten reddedildi.")
     else:
-        await message.reply(f"_{word}_ was already rejected due to {r['reason']}.")
+        await message.reply(f"_{word}_ nedeniyle zaten reddedildi {r['reason']}.")
 
 
 @dp.message_handler(commands="feedback")
@@ -895,14 +894,14 @@ async def cmd_feedback(message: types.Message) -> None:
     arg = message.get_full_command()[1]
     if not arg:
         await message.reply(
-            "Function: Send feedback to my owner.\n"
-            "Usage: `/feedback@on9wordchainbot feedback`"
+            "İşlev: Sahibime geri bildirim gönder.\n"
+            "Kullanım: `/feedback@NightWordBot feedback`"
         )
         return
 
     await asyncio.gather(
         message.forward(ADMIN_GROUP_ID),
-        message.reply("Feedback sent successfully."),
+        message.reply("Geri bildirim başarıyla gönderildi."),
     )
 
 
@@ -930,45 +929,45 @@ async def inline_handler(inline_query: types.InlineQuery):
             [
                 types.InlineQueryResultArticle(
                     id=str(uuid4()),
-                    title="Start a classic game",
-                    description="/startclassic@on9wordchainbot",
-                    input_message_content=types.InputTextMessageContent("/startclassic@on9wordchainbot"),
+                    title="Klasik bir oyun başlatın",
+                    description="/startclassic@NightWordBot",
+                    input_message_content=types.InputTextMessageContent("/startclassic@NightWordBot"),
                 ),
                 types.InlineQueryResultArticle(
                     id=str(uuid4()),
-                    title="Start a hard mode game",
-                    description="/starthard@on9wordchainbot",
-                    input_message_content=types.InputTextMessageContent("/starthard@on9wordchainbot"),
+                    title="Zor mod oyunu başlat",
+                    description="/starthard@NightWordBot",
+                    input_message_content=types.InputTextMessageContent("/starthard@NightWordBot"),
                 ),
                 types.InlineQueryResultArticle(
                     id=str(uuid4()),
-                    title="Start a chaos game",
-                    description="/startchaos@on9wordchainbot",
-                    input_message_content=types.InputTextMessageContent("/startchaos@on9wordchainbot"),
+                    title="Bir kaos oyunu başlatın",
+                    description="/startchaos@NightWordBot",
+                    input_message_content=types.InputTextMessageContent("/startchaos@NightWordBot"),
                 ),
                 types.InlineQueryResultArticle(
                     id=str(uuid4()),
-                    title="Start a chosen first letter game",
-                    description="/startcfl@on9wordchainbot",
-                    input_message_content=types.InputTextMessageContent("/startcfl@on9wordchainbot"),
+                    title="Seçtiğiniz ilk harf oyununu başlatın",
+                    description="/startcfl@NightWordBot",
+                    input_message_content=types.InputTextMessageContent("/startcfl@NightWordBot"),
                 ),
                 types.InlineQueryResultArticle(
                     id=str(uuid4()),
-                    title="Start a banned letters game",
-                    description="/startbl@on9wordchainbot",
-                    input_message_content=types.InputTextMessageContent("/startbl@on9wordchainbot"),
+                    title="Yasaklı mektup oyunu başlat",
+                    description="/startbl@NightWordBot",
+                    input_message_content=types.InputTextMessageContent("/startbl@NightWordBot"),
                 ),
                 types.InlineQueryResultArticle(
                     id=str(uuid4()),
-                    title="Start a required letter game",
-                    description="/startrl@on9wordchainbot",
-                    input_message_content=types.InputTextMessageContent("/startrl@on9wordchainbot"),
+                    title="Gerekli bir harf oyununu başlatın",
+                    description="/startrl@NightWordBot",
+                    input_message_content=types.InputTextMessageContent("/startrl@NightWordBot"),
                 ),
                 types.InlineQueryResultArticle(
                     id=str(uuid4()),
-                    title="Start an elimination game",
-                    description="/startelim@on9wordchainbot",
-                    input_message_content=types.InputTextMessageContent("/startelim@on9wordchainbot"),
+                    title="Bir eleme oyunu başlat",
+                    description="/startelim@NightWordBot",
+                    input_message_content=types.InputTextMessageContent("/startelim@NightWordBot"),
                 ),
             ],
             is_personal=not text,
@@ -980,8 +979,8 @@ async def inline_handler(inline_query: types.InlineQuery):
             [
                 types.InlineQueryResultArticle(
                     id=str(uuid4()),
-                    title="A query can only consist of alphabets",
-                    description="Try a different query",
+                    title="Bir sorgu yalnızca alfabelerden oluşabilir",
+                    description="Farklı bir sorgu dene",
                     input_message_content=types.InputTextMessageContent(r"¯\\_(ツ)\_/¯"),
                 )
             ],
@@ -1006,8 +1005,8 @@ async def inline_handler(inline_query: types.InlineQuery):
         res.append(
             types.InlineQueryResultArticle(
                 id=str(uuid4()),
-                title="No results found",
-                description="Try a different query",
+                title="Sonuç bulunamadı",
+                description="Farklı bir sorgu dene",
                 input_message_content=types.InputTextMessageContent(r"¯\\_(ツ)\_/¯"),
             )
         )
@@ -1033,7 +1032,7 @@ async def error_handler(update: types.Update, error: TelegramAPIError) -> None:
             GAMES[error.migrate_to_chat_id] = GAMES.pop(update.message.chat.id)
             GAMES[error.migrate_to_chat_id].group_id = error.migrate_to_chat_id
             asyncio.create_task(
-                send_admin_group(f"Game moved from {old_gid} to {error.migrate_to_chat_id}.")
+                send_admin_group(f"oyun taşınan için {old_gid} to {error.migrate_to_chat_id}.")
             )
         async with pool.acquire() as conn:
             await conn.execute(
@@ -1057,19 +1056,19 @@ async def error_handler(update: types.Update, error: TelegramAPIError) -> None:
         return
 
     try:
-        await update.message.reply("Error occurred. My owner has been notified.")
+        await update.message.reply("Hata oluştu. Sahibim bilgilendirildi.")
     except TelegramAPIError:
         pass
 
     if update.message.chat.id in GAMES:
         asyncio.create_task(
-            send_admin_msg.reply(f"Killing game in {update.message.chat.id} consequently.")
+            send_admin_msg.reply(f"Sonuç olarak {update.message.chat.id} içinde oyunu öldürmek.")
         )
         GAMES[update.message.chat.id].state = GameState.KILLGAME
         await asyncio.sleep(2)
         try:
             del GAMES[update.message.chat.id]
-            await update.message.reply("Game ended forcibly.")
+            await update.message.reply("Oyun zorla sona erdi.")
         except:
             pass
 
