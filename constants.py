@@ -27,7 +27,7 @@ with open(filename) as f:
     config = json.load(f)
 
 TOKEN = config["TOKEN"]
-NİGHTABOT_TOKEN = config["NİGHTABOT_TOKEN"]
+ON9BOT_TOKEN = config["ON9BOT_TOKEN"]
 DB_URI = config["DB_URI"]
 PROVIDER_TOKEN = config["PROVIDER_TOKEN"]
 OWNER_ID = config["OWNER_ID"]
@@ -39,9 +39,9 @@ VIP_GROUP = config["VIP_GROUP"]
 
 loop = asyncio.get_event_loop()
 BOT_ID = int(TOKEN.partition(":")[0])
-NİGHTABOT_ID = int(NİGHTABOT_TOKEN.partition(":")[0])
+ON9BOT_ID = int(ON9BOT_TOKEN.partition(":")[0])
 bot = Bot(TOKEN, loop, parse_mode=types.ParseMode.MARKDOWN)
-NightABot = Bot(NİGHTABOT_TOKEN, loop)
+ON9BOT = Bot(ON9BOT_TOKEN, loop)
 dp = Dispatcher(bot)
 
 GAMES: Dict[int, "ClassicGame"] = {}  # Group id mapped to game instance
