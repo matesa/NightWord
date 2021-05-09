@@ -1,0 +1,6 @@
+aiocache
+aiofiles
+aiogram
+aiohttp
+asyncpg
+cchardet
