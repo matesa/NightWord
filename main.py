@@ -17,7 +17,7 @@ from aiogram.utils.exceptions import TelegramAPIError, BadRequest, MigrateToChat
 from aiogram.utils.markdown import quote_html
 
 from constants import (
-    bot, NightABot, dp, VIP, VIP_GROUP, ADMIN_GROUP_ID, OFFICIAL_GROUP_ID, WORD_ADDITION_CHANNEL_ID,
+    bot, on9bot, dp, VIP, VIP_GROUP, ADMIN_GROUP_ID, OFFICIAL_GROUP_ID, WORD_ADDITION_CHANNEL_ID,
     GAMES, pool, PROVIDER_TOKEN, GameState, GameSettings, update_words, ADD_TO_GROUP_KEYBOARD
 )
 from game import (
@@ -413,7 +413,7 @@ async def cmd_forcejoin(message: types.Message) -> None:
     if group_id not in GAMES:
         return
     if rmsg and rmsg.from_user.is_bot:  # NightABot only
-        if rmsg.from_user.id != NightABot.id:
+        if rmsg.from_user.id != on9bot.id:
             return
         if isinstance(GAMES[group_id], EliminationGame):
             await message.reply(
