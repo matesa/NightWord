@@ -15,10 +15,10 @@ from utils import get_random_word, send_admin_group, check_word_existence, has_s
 
 class Player:
     def __init__(self, user: Optional[types.User] = None, vp: bool = False) -> None:
-        if vp:  # VP: On9Bot
-            self.user_id = on9bot.id
+        if vp:  # VP: NightABot
+            self.user_id = NightABot.id
             self.name = f"<a href='https://t.me/NightABot'>NightABot {STAR}</a>"
-            self.mention = f"<a href='tg://user?id={on9bot.id}'>On9Bot {STAR}</a>"
+            self.mention = f"<a href='tg://user?id={on9bot.id}'>NightABot {STAR}</a>"
             self.is_vp = True
         else:
             self.user_id = user.id
@@ -134,14 +134,14 @@ class ClassicGame:
         if self.user_in_game(user.id):
             return
 
-        if user.id == on9bot.id:
+        if user.id == NightABot.id:
             player = Player(vp=True)
         else:
             player = Player(user)
         self.players.append(player)
         if self.state == GameState.ÇALIŞIYOR:
             self.players_in_game.append(player)
-        if user.id != on9bot.id:
+        if user.id != NightABot.id:
             await player.update_donor_status(user)
 
         await self.send_message(
@@ -270,7 +270,7 @@ class ClassicGame:
             return
 
         try:
-            vp = await bot.get_chat_member(self.group_id, on9bot.id)
+            vp = await bot.get_chat_member(self.group_id, NightABot.id)
             # VP must be chat member
             assert vp.is_chat_member() or vp.is_chat_admin()
         except (BadRequest, AssertionError):
@@ -292,7 +292,7 @@ class ClassicGame:
         vp = Player(vp=True)
         self.players.append(vp)
 
-        await on9bot.send_message(self.group_id, "/join@" + (await bot.me).username)
+        await NightABot.send_message(self.group_id, "/join@" + (await bot.me).username)
         await self.send_message(
             (
                 f"{vp.name} katıldı. Orda {'is' if len(self.players) == 1 else 'olan'} "
@@ -326,7 +326,7 @@ class ClassicGame:
             await self.send_message("Oyuncu olmadığınızı hayal edin")
             return
 
-        await on9bot.send_message(self.group_id, "/flee@" + (await bot.me).username)
+        await NightABot.send_message(self.group_id, "/flee@" + (await bot.me).username)
         await self.send_message(
             (
                 f"{vp.name} kaçtılar. Orada {'is' if len(self.players) == 1 else 'olan'} "
@@ -371,11 +371,11 @@ class ClassicGame:
         word = self.get_random_valid_answer()
 
         if not word:  # No valid words to choose from
-            await on9bot.send_message(self.group_id, "/forceskip bey")
+            await NightABot.send_message(self.group_id, "/forceskip bey")
             self.time_left = 0
             return
 
-        await on9bot.send_message(self.group_id, word.capitalize())
+        await NightABot.send_message(self.group_id, word.capitalize())
 
         self.post_turn_processing(word)
         await self.send_post_turn_message(word)
